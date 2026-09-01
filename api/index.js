@@ -4,7 +4,9 @@ const path = require('node:path');
 
 const app = express();
 const MAX_PAYLOAD_BYTES = 1024 * 1024;
-const logPath = path.join(process.cwd(), 'data.log');
+const logPath = process.env.VERCEL
+  ? path.join('/tmp', 'data.log')
+  : path.join(process.cwd(), 'data.log');
 
 app.use(express.raw({
   type: '*/*',
